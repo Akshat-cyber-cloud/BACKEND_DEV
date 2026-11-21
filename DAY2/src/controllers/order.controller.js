@@ -35,6 +35,48 @@ const handleCreateOrder = (req, res) => {
     }
 }
 
+const handleGetAllOrders = (req,res) => {
+    const orders = orderService.getAllOrders();
+    return res.status(200).json({
+        success: true,
+        message: "Orders Data Fetched",
+        data: orders
+    });
+};
+
+const handleGetInventory = (req,res) => {
+    const inventory = orderService.getInventory();
+    return res.status(200).json({
+        message: "Inventory Data Fetched",
+        data: inventory,
+        success: true
+    })
+}
+
+const handleCancelOrder = (req,res) => {
+    try{
+        const { orderId } = req.params;
+
+        const cancelledOrder = orderService.cancelOrder(orderId);
+
+        return res.status(200).json({
+            success: true,
+            data: cancelledOrder,
+            error: null
+        });
+    } catch (error){
+        return res.status(400).json({
+            success: false,
+            data: null,
+            error: error.message
+        });
+    }
+}
+
+
 module.exports = {
-    handleCreateOrder
+    handleCreateOrder,
+    handleGetAllOrders,
+    handleGetInventory,
+    handleCancelOrder
 };
