@@ -44,5 +44,12 @@ const handleLogin = asyncHandler(async (req, res) => {
     });
 });
 
+const handleGetUser = asyncHandler(async (req,res) => {
+    res.status(200).json({
+        success: true,
+        data: req.user
+    })
+})
 
-export { handleRegister, handleLogin };
+
+export { handleRegister, handleLogin, handleGetUser };
